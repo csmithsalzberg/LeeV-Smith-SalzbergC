@@ -26,6 +26,21 @@ for line in lines:
 #for key in dict:
 #    jobs.append(key)
 #    jobs.append(dict[key])
+def randoc():
+    '''
+    Prints the name of a random weighted occupation
+    Arg:
+    none
+    Ret:
+    str name of selected weighted occupation
+    '''
+    magic =random.randint(0,1000)/10.0
+    counter = 0
+    for key in dict:
+        if (counter + float(dict[key])) - magic > 0:
+            return key
+        else:
+            counter += float(dict[key])
 
     
 from flask import Flask, render_template
@@ -33,7 +48,7 @@ app = Flask(__name__)
 
 @app.route("/occupations")
 def occ():
-    return render_template('template.html', collection = dict)
+    return render_template('template.html', occupation = randoc(), collection = dict)
 
 if (__name__ == "__main__"):
     app.debug = True
